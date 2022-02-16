@@ -41,11 +41,11 @@ QString BitcoinUnits::id(int unit)
 {
     switch (unit) {
     case PIE:
-        return QString("SITE");
+        return QString("THOT");
     case mPIE:
-        return QString("mSITE");
+        return QString("mTHOT");
     case uPIE:
-        return QString::fromUtf8("uSITE");
+        return QString::fromUtf8("uTHOT");
     default:
         return QString("???");
     }
@@ -56,22 +56,22 @@ QString BitcoinUnits::name(int unit)
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
         case PIE:
-            return QString("SITE");
+            return QString("THOT");
         case mPIE:
-            return QString("mSITE");
+            return QString("mTHOT");
         case uPIE:
-            return QString::fromUtf8("μSITE");
+            return QString::fromUtf8("μTHOT");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
         case PIE:
-            return QString("tSITE");
+            return QString("tTHOT");
         case mPIE:
-            return QString("mtSITE");
+            return QString("mtTHOT");
         case uPIE:
-            return QString::fromUtf8("μtSITE");
+            return QString::fromUtf8("μtTHOT");
         default:
             return QString("???");
         }
@@ -83,22 +83,22 @@ QString BitcoinUnits::description(int unit)
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
         switch (unit) {
         case PIE:
-            return QString("SITE");
+            return QString("THOT");
         case mPIE:
-            return QString("Milli-SITE (1 / 1" THIN_SP_UTF8 "000)");
+            return QString("Milli-THOT (1 / 1" THIN_SP_UTF8 "000)");
         case uPIE:
-            return QString("Micro-SITE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            return QString("Micro-THOT (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
     } else {
         switch (unit) {
         case PIE:
-            return QString("TestSITE");
+            return QString("TestTHOT");
         case mPIE:
-            return QString("Milli-TestSITE (1 / 1" THIN_SP_UTF8 "000)");
+            return QString("Milli-TestTHOT (1 / 1" THIN_SP_UTF8 "000)");
         case uPIE:
-            return QString("Micro-TestSITE (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+            return QString("Micro-TestTHOT (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
         default:
             return QString("???");
         }
