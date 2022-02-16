@@ -368,9 +368,9 @@ public:
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
          * a large 4-byte int at any alignment.
          */
-        pchMessageStart[0] = 0xf2;
-        pchMessageStart[1] = 0xe3;
-        pchMessageStart[2] = 0xf7;
+        pchMessageStart[0] = 0x8a;
+        pchMessageStart[1] = 0xf8;
+        pchMessageStart[2] = 0xc2;
         pchMessageStart[3] = 0xc2;
         vAlertPubKey = ParseHex("0000098d3ba6ba6e7423fa5cbd6a89e0a9a5348f88d332b44a5cb1a8b7ed2c1eaa335fc8dc4f012cb8241cc0bdafd6ca70c5f5448916e4e6f511bcd746ed57dc50");
         nDefaultPort = 53472;
@@ -381,13 +381,13 @@ public:
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 0;
-        nTargetTimespan = 1 * 60; //
-        nTargetSpacing = 1 * 60;  // thunderhot: 1 minute
+        nTargetTimespan = 300 * 60; //
+        nTargetSpacing = 300 * 60;  // thunderhot: 5 minute
         nLastPOWBlock = 999999999;
         nMaturity = 6;
         nMasternodeCountDrift = 20;
         nModifierUpdateBlock = 615800;
-        nMaxMoneyOut = 1000000000 * COIN;
+        nMaxMoneyOut = 90000000000 * COIN;
 
         const char* pszTimestamp = "thunderhot is born";
         CMutableTransaction txNew;
@@ -400,19 +400,54 @@ public:
         genesis.hashPrevBlock = 0;
         genesis.hashMerkleRoot = genesis.BuildMerkleTree();
         genesis.nVersion = 1;
-        genesis.nTime = 1644712101;
+        genesis.nTime = 1644979841;
         genesis.nBits = 0x1e0ffff0;
         genesis.nNonce = 17481523;	
+		
+		const int SCRYPT_SCRATCHPAD_SIZE = 131072 + 63;
+
+          if (true && genesis.GetHash() != hashGenesisBlock)
+        //if(false)
+        {
+            printf("Searching for genesis block...\n");
+            // This will figure out a valid hash and Nonce if you're
+            // creating a different genesis block:
+            uint256 hashTarget = CBigNum().SetCompact(genesis.nBits).getuint256();
+            uint256 thash;
+            char scratchpad[SCRYPT_SCRATCHPAD_SIZE];
+
+            while(true)
+            {
+                scrypt_1024_1_1_256_sp_generic(BEGIN(genesis.nVersion), BEGIN(thash), scratchpad);
+                if (thash <= hashTarget)
+                    break;
+                if ((genesis.nNonce & 0xFFF) == 0)
+                {
+                    printf("nonce %08X: hash = %s (target = %s)\n", genesis.nNonce, thash.ToString().c_str(), hashTarget.ToString().c_str());
+                }
+                ++genesis.nNonce;
+                if (genesis.nNonce == 0)
+                {
+                    printf("NONCE WRAPPED, incrementing time\n");
+                    ++genesis.nTime;
+                }
+            }
+            printf("block.nTime = %u \n", genesis.nTime);
+            printf("block.nNonce = %u \n", genesis.nNonce);
+            printf("block.GetHash = %s\n", genesis.GetHash().ToString().c_str());
+
+            }
+
 		
         hashGenesisBlock = genesis.GetHash();
 
         assert(hashGenesisBlock == uint256("0x8c26b9696e814f8e2a311823da6423af92cd00bc0d0464cc8f4981dc09c25319"));
         //assert(genesis.hashMerkleRoot == uint256("0x83d7618987a3d26b2ad11364d08303f5da3e20e2c00be086d30c90c655cda808"));
 
-        vSeeds.push_back(CDNSSeedData("66.94.115.98","66.94.115.98"));     // Primary DNS Seeder 
+        vSeeds.push_back(CDNSSeedData("144.202.68.122","144.202.68.122"));     // Primary DNS Seeder 
 		
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 63);
-        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 64);
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1, 65);
+        base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1, 66);
         base58Prefixes[SECRET_KEY] = std::vector<unsigned char>(1, 212);
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x02)(0x2D)(0x25)(0x33).convert_to_container<std::vector<unsigned char> >();
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x02)(0x21)(0x31)(0x2B).convert_to_container<std::vector<unsigned char> >();
