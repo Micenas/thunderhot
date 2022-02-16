@@ -1,0 +1,26 @@
+# /etc/conf.d/thunderhotd: config file for /etc/init.d/thunderhotd
+
+# Config file location
+#BITCOIND_CONFIGFILE="/etc/thunderhot/thunderhot.conf"
+
+# What directory to write pidfile to?  (created and owned by $BITCOIND_USER)
+#BITCOIND_PIDDIR="/var/run/thunderhotd"
+
+# What filename to give the pidfile
+#BITCOIND_PIDFILE="${BITCOIND_PIDDIR}/thunderhotd.pid"
+
+# Where to write thunderhotd data (be mindful that the blockchain is large)
+#BITCOIND_DATADIR="/var/lib/thunderhotd"
+
+# User and group to own thunderhotd process
+#BITCOIND_USER="thunderhot"
+#BITCOIND_GROUP="thunderhot"
+
+# Path to thunderhotd executable
+#BITCOIND_BIN="/usr/bin/thunderhotd"
+
+# Nice value to run thunderhotd under
+#BITCOIND_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+BITCOIND_OPTS=""

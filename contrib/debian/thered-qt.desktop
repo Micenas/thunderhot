@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=thunderhot
+Comment=thunderhot P2P Cryptocurrency
+Comment[fr]=thunderhot, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=thunderhot, eşten eşe kriptografik sanal para birimi
+Exec=thunderhot-qt %u
+Terminal=false
+Type=Application
+Icon=thunderhot128
+MimeType=x-scheme-handler/thunderhot;
+Categories=Office;Finance;
